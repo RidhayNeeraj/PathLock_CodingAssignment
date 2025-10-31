@@ -13,7 +13,6 @@ namespace ProjectManager.Api.Services
         Task<bool> UpdateTaskAsync(Guid taskId, TaskUpdateDto taskDto, Guid userId);
         Task<bool> DeleteTaskAsync(Guid taskId, Guid userId);
         
-        // --- UPDATED SIGNATURE ---
         // It now takes projectId and userId, and returns the schedule DTO
         Task<SchedulerOutputDto> GetTaskScheduleAsync(Guid projectId, Guid userId);
     }

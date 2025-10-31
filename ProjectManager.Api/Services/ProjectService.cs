@@ -14,8 +14,6 @@ namespace ProjectManager.Api.Services
             _context = context;
         }
 
-        // --- PROJECT METHODS (Unchanged) ---
-
         public async Task<ProjectDto> CreateProjectAsync(ProjectCreateDto projectDto, Guid userId)
         {
             var project = new Project
@@ -40,7 +38,6 @@ namespace ProjectManager.Api.Services
             return true;
         }
 
-        // --- UPDATED GetProjectByIdAsync ---
         public async Task<ProjectDto?> GetProjectByIdAsync(Guid projectId, Guid userId)
         {
             var project = await _context.Projects
@@ -68,7 +65,6 @@ namespace ProjectManager.Api.Services
             return project;
         }
 
-        // --- GetProjectsAsync (Unchanged) ---
         public async Task<IEnumerable<ProjectDto>> GetProjectsAsync(Guid userId)
         {
             return await _context.Projects.Where(p => p.UserId == userId)
@@ -76,7 +72,6 @@ namespace ProjectManager.Api.Services
                 .ToListAsync();
         }
 
-        // --- UPDATED CreateTaskAsync ---
         public async Task<TaskDto?> CreateTaskAsync(TaskCreateDto taskDto, Guid projectId, Guid userId)
         {
             var project = await _context.Projects
@@ -108,7 +103,6 @@ namespace ProjectManager.Api.Services
             return new TaskDto { Id = task.Id, Title = task.Title, DueDate = task.DueDate, IsCompleted = task.IsCompleted, DependencyIds = taskDto.DependencyIds };
         }
 
-        // --- UPDATED UpdateTaskAsync ---
         public async Task<bool> UpdateTaskAsync(Guid taskId, TaskUpdateDto taskDto, Guid userId)
         {
             var task = await _context.Tasks
@@ -121,7 +115,6 @@ namespace ProjectManager.Api.Services
             task.DueDate = taskDto.DueDate;
             task.IsCompleted = taskDto.IsCompleted;
             
-            // --- Update Dependencies ---
             // Remove old dependencies
             _context.TaskDependencies.RemoveRange(task.Dependencies);
             
@@ -142,7 +135,6 @@ namespace ProjectManager.Api.Services
             return true;
         }
 
-        // --- UPDATED DeleteTaskAsync ---
         public async Task<bool> DeleteTaskAsync(Guid taskId, Guid userId)
         {
             var task = await _context.Tasks
@@ -150,15 +142,11 @@ namespace ProjectManager.Api.Services
                 .FirstOrDefaultAsync(t => t.Id == taskId && t.Project!.UserId == userId);
             if (task == null) return false;
             
-            // We must check if any *other* task depends on this one
             var isDependedOn = await _context.TaskDependencies
                 .AnyAsync(d => d.DependsOnTaskId == taskId);
 
             if (isDependedOn)
             {
-                // Can't delete: Another task depends on this.
-                // You could throw an exception here to let the user know.
-                // For now, we'll just fail silently.
                 return false; 
             }
 
@@ -167,7 +155,6 @@ namespace ProjectManager.Api.Services
             return true;
         }
 
-        // --- COMPLETELY REWRITTEN GetTaskScheduleAsync ---
         public async Task<SchedulerOutputDto> GetTaskScheduleAsync(Guid projectId, Guid userId)
         {
             // Verify user owns project and load all tasks/dependencies for it
@@ -187,7 +174,6 @@ namespace ProjectManager.Api.Services
             var inDegrees = new Dictionary<Guid, int>();
             var idToTitle = new Dictionary<Guid, string>();
 
-            // 1. Build graph, in-degrees, and title map from DB models
             foreach (var task in tasks)
             {
                 inDegrees[task.Id] = 0;
@@ -199,13 +185,11 @@ namespace ProjectManager.Api.Services
             {
                 foreach (var dep in task.Dependencies)
                 {
-                    // Add edge from dependency (DependsOnTaskId) to the task (TaskId)
                     adjacencyList[dep.DependsOnTaskId].Add(dep.TaskId);
                     inDegrees[dep.TaskId]++;
                 }
             }
 
-            // 2. Find nodes with in-degree 0
             var queue = new Queue<Guid>();
             foreach (var task in inDegrees)
             {
@@ -215,7 +199,6 @@ namespace ProjectManager.Api.Services
                 }
             }
 
-            // 3. Process the queue (Topological Sort)
             while (queue.Count > 0)
             {
                 var currentTaskId = queue.Dequeue();

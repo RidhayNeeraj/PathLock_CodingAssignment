@@ -32,8 +32,6 @@ namespace ProjectManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProject(ProjectCreateDto projectDto)
         {
-            // --- THIS IS THE FIX ---
-            // Changed from _project_service to _projectService
             var project = await _projectService.CreateProjectAsync(projectDto, GetUserId()); 
             return CreatedAtAction(nameof(GetProject), new { id = project.Id }, project);
         }

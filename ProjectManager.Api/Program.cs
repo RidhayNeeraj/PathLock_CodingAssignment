@@ -7,12 +7,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Add services to the container ---
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register our services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
@@ -31,7 +28,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Add JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -49,8 +45,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-// --- Configure the HTTP request pipeline ---
-
 app.UseSwagger();
 app.UseSwaggerUI();
 if (app.Environment.IsDevelopment())
@@ -62,13 +56,11 @@ app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 
-// Order is important!
 app.UseAuthentication(); // First, check who the user is
 app.UseAuthorization();  // Then, check if they are allowed
 
 app.MapControllers();
 
-// Automatically create or update the database on startup
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios'; // Import axios to check error type
+import axios from 'axios'; 
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');

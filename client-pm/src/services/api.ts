@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// !! CHECK YOUR BACKEND PORT !!
 // This should match the port from your ProjectManager.Api
 // const API_URL = 'http://localhost:5130/api';
 const API_URL = 'https://pathlock-codingassignment.onrender.com/api'; 

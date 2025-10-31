@@ -14,7 +14,6 @@ namespace ProjectManager.Api.Models
         public Guid ProjectId { get; set; }
         public Project? Project { get; set; }
 
-        // --- NEW NAVIGATION PROPERTIES ---
         // List of tasks this task depends on
         public List<TaskDependency> Dependencies { get; set; } = new();
         

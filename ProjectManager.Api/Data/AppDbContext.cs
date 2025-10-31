@@ -11,7 +11,6 @@ namespace ProjectManager.Api.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<TaskItem> Tasks { get; set; }
         
-        // --- ADD THIS NEW DBSET ---
         public DbSet<TaskDependency> TaskDependencies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,12 +27,9 @@ namespace ProjectManager.Api.Data
                 .WithOne(t => t.Project)
                 .HasForeignKey(t => t.ProjectId);
 
-            // --- ADD THIS NEW CONFIGURATION ---
-            // Define the composite primary key for the join table
             modelBuilder.Entity<TaskDependency>()
                 .HasKey(td => new { td.TaskId, td.DependsOnTaskId });
 
-            // Configure the many-to-many relationship
             modelBuilder.Entity<TaskDependency>()
                 .HasOne(td => td.Task)
                 .WithMany(t => t.Dependencies)
@@ -44,7 +40,7 @@ namespace ProjectManager.Api.Data
                 .HasOne(td => td.DependsOnTask)
                 .WithMany(t => t.IsDependencyFor)
                 .HasForeignKey(td => td.DependsOnTaskId)
-                .OnDelete(DeleteBehavior.Restrict); // Don't let a task be deleted if another task depends on it
+                .OnDelete(DeleteBehavior.Restrict); // Doesn't let a task be deleted if another task depends on it
         }
     }
 }

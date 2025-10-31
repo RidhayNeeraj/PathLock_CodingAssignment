@@ -13,8 +13,6 @@ import {
   Navbar,
 } from 'react-bootstrap';
 
-// !! CHECK YOUR BACKEND PORT from TaskManager.Api !!
-// This was likely 5206, but double-check your first project.
 const API_URL = 'http://localhost:5206/api/tasks';
 
 interface TaskItem {

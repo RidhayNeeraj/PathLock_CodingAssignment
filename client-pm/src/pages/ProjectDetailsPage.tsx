@@ -142,7 +142,6 @@ const ProjectDetailsPage = () => {
     return project?.tasks.find((t) => t.id === taskId)?.title || 'Unknown Task';
   };
 
-  // --- Main Render ---
   if (loading) {
     return (
       <>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
 
-// This component will show an error message and a close button
 interface ErrorAlertProps {
   error: string;
   onClose: () => void;

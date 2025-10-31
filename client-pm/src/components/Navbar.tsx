@@ -2,10 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Navbar as BsNavbar, Nav, Container, Button } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap'; // We need this!
-
-// You need to install one more small helper package for this
-// Run: npm install react-router-bootstrap
+import { LinkContainer } from 'react-router-bootstrap'; 
 
 export const Navbar = () => {
   const { email, logout } = useAuth();

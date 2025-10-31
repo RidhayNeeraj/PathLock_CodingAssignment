@@ -105,7 +105,7 @@ const DashboardPage = () => {
                 key={project.id}
                 as={Link} 
                 to={`/project/${project.id}`}
-                action // Adds hover effect
+                action 
               >
                 {project.title}
               </ListGroup.Item>
