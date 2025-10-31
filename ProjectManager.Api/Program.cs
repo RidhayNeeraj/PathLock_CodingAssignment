@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3001", "https://path-lock-coding-assignment-ezectonu0-ridhays-projects.vercel.app") // Your client-pm app's URL
+            policy.WithOrigins("http://localhost:3001", "https://path-lock-coding-assignment.vercel.app")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
