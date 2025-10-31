@@ -4,18 +4,18 @@ This repository contains the completed solutions for the PathLock coding assignm
 
 ---
 
-## 🚀 Mini Project Manager (Assignment 2)
+##  Mini Project Manager (Assignment 2)
 
 This is a comprehensive, full-stack project management application built with .NET 8 and React (TypeScript). It includes user authentication, project/task management, and a dynamic task scheduler.
 
-### 🔗 **Live Links**
+###  **Live Links**
 
 * **Live Frontend (Vercel):** [https://path-lock-coding-assignment.vercel.app](https://path-lock-coding-assignment.vercel.app)
 * **Live Backend API (Render):** [https://pathlock-codingassignment.onrender.com/swagger](https://pathlock-codingassignment.onrender.com/swagger)
 
 ---
 
-## ✨ Features
+##  Features
 
 ### Core Functionality
 * **JWT Authentication:** Full user registration and login system.
@@ -33,7 +33,7 @@ This is a comprehensive, full-stack project management application built with .N
 
 ---
 
-## 💻 Tech Stack
+##  Tech Stack
 
 | Backend | Frontend | Deployment |
 | :--- | :--- | :--- |
@@ -45,7 +45,7 @@ This is a comprehensive, full-stack project management application built with .N
 
 ---
 
-## 🏃‍♂️ How to Run Locally
+##  How to Run Locally
 
 To run the main project (`ProjectManager.Api` and `client-pm`) on your local machine:
 
@@ -85,7 +85,7 @@ The React app will open at http://localhost:3001.
 
 Note: You may need to adjust the API_URL in client-pm/src/services/api.ts to match the port your backend is running on.
 
-## ✅ Basic Task Manager (Assignment 1)
+##  Basic Task Manager (Assignment 1)
 
 The repository also contains the solution for the first assignment. The code is located in:
 
